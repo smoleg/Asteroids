@@ -13,8 +13,8 @@ namespace Asteroids
         static void Main()
         {
             Form form = new Form();
-            form.MinimumSize = new System.Drawing.Size(800, 500);
-            form.MaximumSize = new System.Drawing.Size(800, 500);
+            form.MinimumSize = new System.Drawing.Size(800, 700);
+            form.MaximumSize = new System.Drawing.Size(800, 700);
             form.MaximizeBox = false;
             form.MinimizeBox = false;
             form.StartPosition = FormStartPosition.CenterScreen;

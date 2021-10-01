@@ -12,17 +12,19 @@ namespace Asteroids
         protected Point pos;
         protected Point dir;
         protected Size size;
+        protected Image img;
 
-        public Asteroid(Point pos, Point dir, Size size)
+        public Asteroid(Point pos, Point dir, Size size, Image img)
         {
             this.pos = pos;
             this.dir = dir;
             this.size = size;
+            this.img = img;
         }
 
         public virtual void Draw()
         {
-            Game.Buffer.Graphics.DrawEllipse(Pens.White, pos.X, pos.Y, size.Width, size.Height);
+            Game.Buffer.Graphics.DrawImage(img, pos.X, pos.Y, size.Width, size.Height);
         }
 
         public virtual void Update()

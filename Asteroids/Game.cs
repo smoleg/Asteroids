@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Asteroids.Properties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Asteroids
         public static BufferedGraphics Buffer;
         static Asteroid[] _asteroids;
         static Asteroid[] _stars;
+        static Pulsar pulsar;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
@@ -45,14 +47,23 @@ namespace Asteroids
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
+            // Фон
+            Buffer.Graphics.DrawImage(Resources.background, new Rectangle(0, 0, Width, Height));
 
+
+            // Звезды
             foreach (var star in _stars)
             {
                 star.Draw();
             }
 
-            Buffer.Graphics.FillEllipse(Brushes.Red, new Rectangle(100, 100, 200, 200));
+            // Пульсар
+            pulsar.Draw();
 
+            // Планета
+            Buffer.Graphics.DrawImage(Resources.planet, new Rectangle(100, 100, 180, 180));
+
+            // Астероиды
             foreach (var asteroid in _asteroids)
             {
                 asteroid.Draw();
@@ -64,20 +75,33 @@ namespace Asteroids
         public static void Load()
         {
             Random random = new Random();
-            _asteroids = new Asteroid[15];
 
+            _asteroids = new Asteroid[15];
             for (int i = 0; i < _asteroids.Length; i++)
             {
-                var size = random.Next(10, 40);
-                _asteroids[i] = new Asteroid(new Point(600, i * 20 + 20), new Point(-i - 3, -i - 3), new Size(size, size));
+                Image[] img = { Resources.asteroid1, Resources.asteroid2, Resources.asteroid3 };
+                var size = random.Next(20, 50);
+                var dir = random.Next(4, 7);
+                _asteroids[i] = new Asteroid(new Point(random.Next(Height), random.Next(Width)),
+                    new Point(-1 * (random.Next(2) + 1) * dir, -1 * (random.Next(2) + 1) * dir),
+                    new Size(size, size),
+                    img[random.Next(img.Length)]);
             }
 
             _stars = new Asteroid[20];
-
             for (int i = 0; i < _stars.Length; i++)
             {
-                _stars[i] = new Star(new Point(600, i * 10 + 7), new Point(i + 1, i + 1), new Size(4, 4));
+                Image[] img = { Resources.star1, Resources.star2, Resources.star3 };
+                var size = random.Next(5, 21);
+                var dir = random.Next(3);
+                _stars[i] = new Star(new Point(random.Next(Width), random.Next(Height)),
+                    new Point(-1 * (random.Next(2) + 1) * dir, -1 * (random.Next(2) + 1) * dir),
+                    new Size(size, size),
+                    img[random.Next(img.Length)]);
             }
+
+            pulsar = new Pulsar(new Point(450, 300), new Point(3, 3), new Size(120, 120), Resources.Pulsar);
+
         }
 
         public static void Update()
@@ -91,6 +115,7 @@ namespace Asteroids
             {
                 star.Update();
             }
+            pulsar.Update();
         }
     }
 }
