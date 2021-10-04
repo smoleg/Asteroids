@@ -108,5 +108,8 @@
   <ItemGroup>
     <None Include="Resources\laser.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Explosion.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

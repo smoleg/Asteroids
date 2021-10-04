@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,17 +18,49 @@ namespace Asteroids
         static BaseObject[] _stars;
         static BaseObject pulsar;
         static BaseObject _bullet;
+        static SoundPlayer player;
 
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        public static int Width
+        {
+            get
+            {
+                return Width;
+            }
+            set
+            {
+                if (value > 1000 || value < 0) throw new ArgumentOutOfRangeException();
+                Width = value;
+            }
+        }
+        public static int Height
+        {
+            get
+            {
+                return Height;
+            }
+            set
+            {
+                if (value > 1000 || value < 0) throw new ArgumentOutOfRangeException();
+                Height = value;
+            }
+        }
 
         public static void Init(Form form)
         {
             _context = BufferedGraphicsManager.Current;
             Graphics g = form.CreateGraphics();
 
-            Width = form.ClientSize.Width;
-            Height = form.ClientSize.Height;
+            try
+            {
+                Width = form.ClientSize.Width;
+                Height = form.ClientSize.Height;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Width = 1000;
+                Height = 1000;
+            }
+
 
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
@@ -68,7 +101,7 @@ namespace Asteroids
             {
                 asteroid.Draw();
             }
-     
+
             // Лазер
             _bullet.Draw();
 
@@ -77,6 +110,7 @@ namespace Asteroids
 
         public static void Load()
         {
+            player = new SoundPlayer(Resources.Explosion);
             _bullet = new Bullet(new Point(0, 200), new Point(10, 0), new Size(30, 60), Resources.laser);
 
             Random random = new Random();
@@ -116,9 +150,9 @@ namespace Asteroids
                 asteroid.Update();
                 if (asteroid.Collision(_bullet))
                 {
-                    System.Media.SystemSounds.Beep.Play();
+                    player.Play();
                     _bullet.ResetPosition();
-                }                
+                }
             }
 
             foreach (var star in _stars)
