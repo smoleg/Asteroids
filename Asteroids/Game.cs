@@ -13,9 +13,10 @@ namespace Asteroids
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
-        static Asteroid[] _asteroids;
-        static Asteroid[] _stars;
-        static Pulsar pulsar;
+        static BaseObject[] _asteroids;
+        static BaseObject[] _stars;
+        static BaseObject pulsar;
+        static BaseObject _bullet;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
@@ -46,7 +47,6 @@ namespace Asteroids
 
         public static void Draw()
         {
-            Buffer.Graphics.Clear(Color.Black);
             // Фон
             Buffer.Graphics.DrawImage(Resources.background, new Rectangle(0, 0, Width, Height));
 
@@ -68,12 +68,17 @@ namespace Asteroids
             {
                 asteroid.Draw();
             }
+     
+            // Лазер
+            _bullet.Draw();
 
             Buffer.Render();
         }
 
         public static void Load()
         {
+            _bullet = new Bullet(new Point(0, 200), new Point(10, 0), new Size(30, 60), Resources.laser);
+
             Random random = new Random();
 
             _asteroids = new Asteroid[15];
@@ -88,7 +93,7 @@ namespace Asteroids
                     img[random.Next(img.Length)]);
             }
 
-            _stars = new Asteroid[20];
+            _stars = new Star[20];
             for (int i = 0; i < _stars.Length; i++)
             {
                 Image[] img = { Resources.star1, Resources.star2, Resources.star3 };
@@ -109,13 +114,20 @@ namespace Asteroids
             foreach (var asteroid in _asteroids)
             {
                 asteroid.Update();
+                if (asteroid.Collision(_bullet))
+                {
+                    System.Media.SystemSounds.Beep.Play();
+                    _bullet.ResetPosition();
+                }                
             }
 
             foreach (var star in _stars)
             {
                 star.Update();
             }
+
             pulsar.Update();
+            _bullet.Update();
         }
     }
 }

@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace Asteroids
 {
-    class Pulsar : Asteroid
+    class Pulsar : BaseObject
     {
-        public Pulsar(Point pos, Point dir, Size size, Image img) : base(pos, dir, size, img)
-        {
-        }
+        public Pulsar(Point pos, Point dir, Size size, Image img) : base(pos, dir, size, img) { }
 
         public override void Draw()
         {
