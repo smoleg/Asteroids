@@ -19,8 +19,10 @@ namespace Asteroids
         static BaseObject pulsar;
         static BaseObject _bullet;
         static SoundPlayer player;
+        public static int Width; 
+        public static int Height;
 
-        public static int Width
+        public static int width
         {
             get
             {
@@ -32,7 +34,7 @@ namespace Asteroids
                 Width = value;
             }
         }
-        public static int Height
+        public static int height
         {
             get
             {
@@ -52,8 +54,8 @@ namespace Asteroids
 
             try
             {
-                Width = form.ClientSize.Width;
-                Height = form.ClientSize.Height;
+                width = form.ClientSize.Width;
+                height = form.ClientSize.Height;
             }
             catch (ArgumentOutOfRangeException)
             {

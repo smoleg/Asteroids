@@ -36,7 +36,7 @@ namespace Asteroids
 
         public override void ResetPosition()
         {
-            pos.X = r.Next(Game.Width);
+            pos.X = (Game.Width / 2) + r.Next(Game.Width / 2);
             pos.Y = r.Next(Game.Height);
         }
 
