@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace Asteroids
 {
-    class Pulsar : Asteroid
+    class Pulsar : BaseObject
     {
-        public Pulsar(Point pos, Point dir, Size size, Image img) : base(pos, dir, size, img)
-        {
-        }
+        public Pulsar(Point pos, Point dir, Size size, Image img) : base(pos, dir, size, img) { }
 
         public override void Draw()
         {
-            Game.Buffer.Graphics.DrawImage(img, pos.X, pos.Y, size.Width, size.Height); 
+            Game.Buffer.Graphics.DrawImage(img, pos.X, pos.Y, size.Width, size.Height);
         }
+
+        public override void ResetPosition() { }
 
         public override void Update()
         {
-            if (size.Width > 200) 
+            if (size.Width > 200)
             {
                 dir.X = -dir.X;
                 dir.Y = -dir.Y;
@@ -30,7 +30,7 @@ namespace Asteroids
             {
                 dir.X = -dir.X;
                 dir.Y = -dir.Y;
-            }   
+            }
             size.Width += dir.X;
             size.Height += dir.Y;
             pos.X = pos.X - dir.X / 2;

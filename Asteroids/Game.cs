@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,20 +14,55 @@ namespace Asteroids
     {
         private static BufferedGraphicsContext _context;
         public static BufferedGraphics Buffer;
-        static Asteroid[] _asteroids;
-        static Asteroid[] _stars;
-        static Pulsar pulsar;
+        static BaseObject[] _asteroids;
+        static BaseObject[] _stars;
+        static BaseObject pulsar;
+        static BaseObject _bullet;
+        static SoundPlayer player;
+        public static int Width; 
+        public static int Height;
 
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        public static int width
+        {
+            get
+            {
+                return Width;
+            }
+            set
+            {
+                if (value > 1000 || value < 0) throw new ArgumentOutOfRangeException();
+                Width = value;
+            }
+        }
+        public static int height
+        {
+            get
+            {
+                return Height;
+            }
+            set
+            {
+                if (value > 1000 || value < 0) throw new ArgumentOutOfRangeException();
+                Height = value;
+            }
+        }
 
         public static void Init(Form form)
         {
             _context = BufferedGraphicsManager.Current;
             Graphics g = form.CreateGraphics();
 
-            Width = form.ClientSize.Width;
-            Height = form.ClientSize.Height;
+            try
+            {
+                width = form.ClientSize.Width;
+                height = form.ClientSize.Height;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Width = 1000;
+                Height = 1000;
+            }
+
 
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
@@ -46,7 +82,6 @@ namespace Asteroids
 
         public static void Draw()
         {
-            Buffer.Graphics.Clear(Color.Black);
             // Фон
             Buffer.Graphics.DrawImage(Resources.background, new Rectangle(0, 0, Width, Height));
 
@@ -69,11 +104,17 @@ namespace Asteroids
                 asteroid.Draw();
             }
 
+            // Лазер
+            _bullet.Draw();
+
             Buffer.Render();
         }
 
         public static void Load()
         {
+            player = new SoundPlayer(Resources.Explosion);
+            _bullet = new Bullet(new Point(0, 200), new Point(10, 0), new Size(30, 60), Resources.laser);
+
             Random random = new Random();
 
             _asteroids = new Asteroid[15];
@@ -88,7 +129,7 @@ namespace Asteroids
                     img[random.Next(img.Length)]);
             }
 
-            _stars = new Asteroid[20];
+            _stars = new Star[20];
             for (int i = 0; i < _stars.Length; i++)
             {
                 Image[] img = { Resources.star1, Resources.star2, Resources.star3 };
@@ -109,13 +150,20 @@ namespace Asteroids
             foreach (var asteroid in _asteroids)
             {
                 asteroid.Update();
+                if (asteroid.Collision(_bullet))
+                {
+                    player.Play();
+                    _bullet.ResetPosition();
+                }
             }
 
             foreach (var star in _stars)
             {
                 star.Update();
             }
+
             pulsar.Update();
+            _bullet.Update();
         }
     }
 }
