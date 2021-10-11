@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Asteroids
 {
@@ -20,9 +21,7 @@ namespace Asteroids
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Text = "Asteroids";
 
-            Game.Init(form);
-            //form.Show();
-            //Game.Draw();
+            Game.Init(form);          
             Application.Run(form);
         }
     }

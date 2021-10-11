@@ -8,6 +8,11 @@ namespace Asteroids
 {
     class DeathEventArgs : EventArgs
     {
+        public int LastDamage { get; set; }
 
+        public DeathEventArgs (int lastDamage)
+        {
+            LastDamage = lastDamage;
+        }
     }
 }
