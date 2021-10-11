@@ -46,14 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MedKit.cs" />
     <Compile Include="Asteroid.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="Bullet.cs" />
+    <Compile Include="DeathEventArgs.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="ICollision.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pulsar.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="Star.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,6 +113,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Explosion.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spaceship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\explosion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\medkit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

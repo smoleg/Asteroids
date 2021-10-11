@@ -40,7 +40,7 @@ namespace Asteroids
 
         public abstract void Update();
 
-        public abstract void ResetPosition();
+        public virtual void ResetPosition() { }
 
     }
 }

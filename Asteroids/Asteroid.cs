@@ -9,6 +9,8 @@ namespace Asteroids
 {
     class Asteroid : BaseObject
     {
+        public event EventHandler AstDestruction;
+
         Random r = new Random();
 
         public Asteroid(Point pos, Point dir, Size size, Image img) : base(pos, dir, size, img)
@@ -50,6 +52,14 @@ namespace Asteroids
 
             if (pos.Y < 0) dir.Y = -dir.Y;
             if (pos.Y > Game.Width) dir.Y = -dir.Y;
+        }
+
+        public void Logging()
+        {
+            if (AstDestruction != null)
+            {
+                AstDestruction.Invoke(this, new EventArgs());
+            }
         }
     }
 }

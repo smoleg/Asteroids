@@ -112,9 +112,29 @@ namespace Asteroids.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap explosion1 {
+            get {
+                object obj = ResourceManager.GetObject("explosion1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap laser {
             get {
                 object obj = ResourceManager.GetObject("laser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap medkit {
+            get {
+                object obj = ResourceManager.GetObject("medkit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -135,6 +155,16 @@ namespace Asteroids.Properties {
         internal static System.Drawing.Bitmap Pulsar {
             get {
                 object obj = ResourceManager.GetObject("Pulsar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spaceship {
+            get {
+                object obj = ResourceManager.GetObject("spaceship", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
