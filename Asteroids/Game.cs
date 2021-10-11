@@ -108,8 +108,8 @@ namespace Asteroids
 
         private static void Timer_Tick(object sender, EventArgs e)
         {
-            Update();
             Draw();
+            Update();            
         }
 
         public static void Draw()
