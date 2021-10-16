@@ -178,6 +178,7 @@ namespace Asteroids
 
         }
 
+        // Формирование коллекции астероидов
         private static void LoadAsteroids(int count)
         {
             _asteroids = new List<Asteroid>();
